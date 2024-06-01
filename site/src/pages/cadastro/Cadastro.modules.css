@@ -25,8 +25,8 @@ body {
 }
 
 .modal {
-    height: 110%; /* Ajuste o valor conforme necessário */
-    width: 100%;
+    height: 650px; /* Ajuste o valor conforme necessário */
+    width: 600px;
     max-width: 600px;
     background-color: #F5F5F5;
     border-radius: 20px;
@@ -39,6 +39,7 @@ body {
 }
 
 .conteudo-modal {
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,7 +75,7 @@ body {
 }
 
 .frase-inicial {
-    margin-top: 20px;
+    margin-top: 10px;
     font-size: 25px;
     font-weight: bold;
     color:#3C3C3C;
@@ -149,20 +150,20 @@ body {
     cursor: pointer;
 }
 
-.avancar {
-    margin-top: 50px;
+.avancarCadastro {
+    margin-top: 70px;
     background-color: #9333EA;
     border: none;
     border-radius: 7px;
     color: white;
-    /* font-weight: bold; */
-    font-size: 18px;
-    height: 40px;
-    width: 120px;
+    font-weight: bold;
+    font-size: 15px;
+    height: 30px;
+    width: 100px;
     cursor: pointer;
 }
 
-.avancar:hover {
+.avancarCadastro:hover {
     background-color: #a352ef;
     transition: ease-in 0.1s;
 }
@@ -447,29 +448,35 @@ body {
     color: #3C3C3C;
 }
 
-.opcoes {
+.opcoesCadastro {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+}
+.checkOpcaoCadastro{
+    display: flex;
 }
 
-.coluna {
+.colunaCadastro {
     margin: 10px 20px 20px;
     color: #3C3C3C;
 }
 
-.coluna input {
+.colunaCadastro input {
     margin: 10px;
     height: 20px;
     width: 20px;
     border-radius: 40px;
 }
 
-.coluna label {
+.colunaCadastro label {
     /* margin-bottom: 60px; */
     font-size: medium;
 }
 
-textarea{
+.conteudo-modal textarea{
+    border-radius: 6px;
+    resize: none;
     color: #000000;
     height: 150px;
     width: 550px;
@@ -485,24 +492,42 @@ textarea{
     font-size: 12.2px;
     color: #3C3C3C;
 }
-
-.concluir {
-    margin-top: 20px;
+.concluirCadastro {
+    margin-left: 10px;
     background-color: #9333EA;
     border: none;
     border-radius: 7px;
     color: white;
-    /* font-weight: bold; */
-    font-size: 18px;
-    height: 40px;
-    width: 120px;
+    font-weight: bold;
+    font-size: 15px;
+    height: 30px;
+    width: 100px;
     cursor: pointer;
 }
 
-.concluir:hover {
-    background-color: #421564;
+.concluirCadastro:hover {
+    background-color: #b86cf3;
     transition: ease-in 0.1s;
 }
-.voltar{
-    font-size: 20px;
+.voltarCadastro{
+    border: none;
+    border-radius: 7px;
+    background-color: #6B6B6B;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    height: 30px;
+    width: 100px;
+    cursor: pointer;
+}
+.voltarCadastro:hover {
+    background-color: #898585;
+    transition: ease-in 0.1s;
+}
+.botoesVoltarAvancarCadastro{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }

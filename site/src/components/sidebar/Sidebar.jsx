@@ -26,7 +26,7 @@ function SidebarGerenciamentoConta() {
       height = "100vh"; // altura para o perfil
       break;
     case '/gerenciamento-conta/portfolio':
-      height = "150vh"; // altura para o portfólio
+      height = "180vh"; // altura para o portfólio
       break;
     case '/gerenciamento-conta/estudio':
       height = "130vh"; // altura para o estúdio

@@ -13,6 +13,7 @@ import { RiTimerLine } from "react-icons/ri";
 import { MdLocationPin } from "react-icons/md";
 import WhatsAppButton from '@/components/whastApp/WhatsAppButton'
 import InstagramButton from "@/components/instagram/InstagramButton";
+import { IoChevronBackCircle } from "react-icons/io5";
 
 function Detalhes() {
   return (
@@ -26,13 +27,10 @@ function Detalhes() {
       <div className={styles["container-detalhes"]}>
         <article className={styles["informacoes"]}>
           <div className={styles["botoes-informacoes"]}>
-            <Button className="bg-gray-600 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-full mt-5">
-              <AiOutlineLeft className="text-xl" />
-            </Button>
-
-            <Button className="bg-gray-600 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded-full mt-5">
-              <AiOutlineShareAlt className="text-xl" />
-            </Button>
+          <Link to='/listagem-tatuadores'>
+          <IoChevronBackCircle style={{ color: '#121212' , marginLeft: '10px', marginTop: '10px' }} size={40} />
+            </Link>
+            
           </div>
           <div className="flex flex-col items-start">
             <div className="flex">

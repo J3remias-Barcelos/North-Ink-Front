@@ -3,7 +3,7 @@ import styles from '../home/Home.module.css';
 import { PiUserCircleLight } from "react-icons/pi";
 import Footer from '@/components/footer/footer';
 import { Link } from 'react-router-dom';
-import perfilTatuador from '../../utils/assets/perfil.png'
+import fotoDepoimento from '../../utils/assets/foto-tatuador-depoimento.jpg'
 
 
 
@@ -74,7 +74,7 @@ function Home() {
                 </header>
                 <article>Depoimento de um dos nossos <span style={{ color: '#9333EA' }}>parceiros.</span></article>
                 <div className={styles["depoimento-tatuador"]}>
-                    <img style={{ width: '784px', height: '608px' }} src='https://img.freepik.com/fotos-gratis/tatuador-experiente-em-frente-ao-seu-estudio_23-2149479274.jpg?t=st=1716320166~exp=1716323766~hmac=f1d337769877c39951f537534132142886a406f411b5801efe00f9021a682ea7&w=996' alt="Depoimento do tatuador" />
+                    <img style={{ width: '784px', height: '608px' }} src={fotoDepoimento} alt="Depoimento do tatuador" />
                     <div className={styles["texto-depoimento"]}>
                         <header>Roberto Otávio de Paula, 45 anos</header>
                         <article>Proprietário do <span style={{ color: '#9333EA' }}>Tattoo House</span> - Santa Cecilia</article>

@@ -1,16 +1,12 @@
 .fora-da-sidebar {
-    height: 100vh;
-    width: 100%;
-    /* position: relative; */
     display: flex;
-    /* align-items: center; */
-    justify-content: center;
+    margin-top: 45px;
     flex-direction: column;
     margin-left: 10%;
     font-size: medium;
   }
   
-  .titulo {
+  .tituloPortifolio {
     font-family: "Poppins";
     font-size: 40px;
     color: #a855f7;
@@ -19,6 +15,15 @@
   .fora-da-sidebar h3 {
     font-family: "Poppins";
     font-size: 20px;
+    color: #6b6b6b;
+  }
+  .subtituloPortifolio{
+    font-weight: 700;
+  }
+  .subtituloIIPortifolio{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 18px;
     color: #6b6b6b;
   }
   
@@ -47,21 +52,139 @@
   
   .fora-da-sidebar input {
     height: 40px;
-    width: 430px;
+    width: 300px;
     border: #6b6b6b solid 1px;
     border-radius: 6px;
     margin-right: 15px;
     text-align: center;
   }
-  
-  .botao-grupo button{
+
+  .fora-da-sidebar textarea{
+    resize: none;
+    width: 350px;
+    height: 200px;
+    border: #6b6b6b solid 1px;
+    border-radius: 6px;
+    margin-right: 15px;
+    text-align: center;
+  }
+  .precoPortifolio{
+    margin-bottom: 10px;
+  }
+  .precoPortifolio input{
+    width: 200px;
+    height: 27px;
+  }
+  .tituloValorMin{
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 15px;
+  }
+  .botaoGerenciamento{
       margin-top: 30px;
-      height: 40px;
-      width: 100px;
+      height: 26px;
+      width: 123px;
       border: none;
       border-radius: 6px;
       background-color: #a855f7;
       color: white;
-      font-size: 20px;
+      font-weight: bold;
+      font-size: 12px;
       cursor: pointer;
   }
+.estilosDetalhes{
+  background-color: #9333EA;
+  margin-bottom: 10px;
+}
+.caixaSelecaoEstilosPortifolio{
+  width: 200px;
+  height: 27px;
+  margin-right: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.estiloItem{
+  display: flex;
+}
+.userInstaPortifolio input{
+  width: 200px;
+  height: 27px;
+}
+.userInstaTitulo{
+  display: flex;
+}
+.userInstaPortifolio{
+  margin-top: 20px;
+}
+
+.customContainer {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: #9333EA; 
+  /* padding: 2rem;  */
+  border-radius: 0.5rem; 
+  height: 350px; 
+  width: 600px; 
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  transition: border-color 300ms, box-shadow 300ms; /* Correspondente ao `transition duration-300` */
+}
+
+.customContainer:hover {
+  border-color: #D6BCFA; /* Correspondente ao `hover:border-purple-400` */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Correspondente ao `hover:shadow-md` */
+}
+
+.customContainerVisible{
+  border-style: dashed;
+  border-width: 2px;
+  border-color: #9333EA; 
+  padding: 2rem; 
+  border-radius: 0.5rem; 
+  height: 350px; 
+  width: 600px; 
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  transition: border-color 300ms, box-shadow 300ms;
+}
+
+.fotoPerfilPortifolio {
+  position: relative;
+  width: 150px; /* Ajuste conforme necessário */
+  height: 150px; /* Ajuste conforme necessário */
+  border: 2px dashed #9333EA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #f3f4f6; /* Background para quando não houver imagem */
+  border-radius: 50%; /* Tornar a div circular */
+}
+
+.fotoPerfilPortifolio img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover; /* Garantir que a imagem cubra a div sem distorção */
+}
+
+.hiddenInput{
+  display: none;
+}
+.botaoPortifolioSalvar{
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  width: 317px;
+  height: 43px;
+  background-color: #A855F7;
+  color: #FFFFFF;
+  border-radius: 8px;
+}

@@ -214,11 +214,11 @@ function Cadastro() {
       if (response.status === 201) {
         toast.success("Cadastro realizado com sucesso!");
       }
-  }).catch(() => {
+    }).catch(() => {
       toast.error("Erro ao realizar cadastro, tente novamente!");
       console.error(response);
-  })
-}
+    })
+  }
 
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
@@ -235,9 +235,9 @@ function Cadastro() {
   return (
     <div className="inicio">
       <Link to='/'>
-        <span className="voltar-texto"><IoIosArrowBack size={30}/>Voltar</span>
+        <span className="voltar-texto"><IoIosArrowBack size={30} />Voltar</span>
       </Link>
-      <ToastContainer className="toastContainer"/>
+      <ToastContainer className="toastContainer" />
       <div>
         <div className={`modal ${mostrarPrimeiraTela ? '' : 'oculto'}`}>
           {/* Conteúdo da primeira tela */}
@@ -306,10 +306,8 @@ function Cadastro() {
                 />
               </div>
             </div>
-            <button className="avancar" onClick={validaCampos}>Próximo</button>
-            <Link to='/'>
-            <img src={logoFooter} className="logo-cadastro"></img>
-            </Link>
+            <button className="avancarCadastro" onClick={validaCampos}>Próximo</button>
+
           </div>
         </div>
 
@@ -382,43 +380,84 @@ function Cadastro() {
             <span className="frase-inicial">Para as pessoas te conhecerem.</span>
             <div className="linha"></div>
             <span className="msg-3-tela">Quais seus estilos preferidos para trabalhar?</span>
-            <div className="opcoes">
-              <div className="coluna">
-                <input type="checkbox" id="oldSchool" name="oldSchool" value="Old School" onChange={handleEstiloChange} />
-                <label htmlFor="oldSchool">Old School</label><br />
-                <input type="checkbox" id="newSchool" name="newSchool" value="New School" onChange={handleEstiloChange} />
-                <label htmlFor="newSchool">New School</label><br />
-                <input type="checkbox" id="realismo" name="realismo" value="Realismo" onChange={handleEstiloChange} />
-                <label htmlFor="realismo">Realismo</label><br />
-                <input type="checkbox" id="aquarela" name="aquarela" value="Aquarela" onChange={handleEstiloChange} />
-                <label htmlFor="aquarela">Aquarela</label><br />
+            <div className="opcoesCadastro">
+              <div className="colunaCadastro">
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="oldSchool" name="oldSchool" value="Old School" onChange={handleEstiloChange} />
+                  <label htmlFor="oldSchool">Old School</label><br />
+                </div>
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="newSchool" name="newSchool" value="New School" onChange={handleEstiloChange} />
+                  <label htmlFor="newSchool">New School</label><br />
+                </div>
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="realismo" name="realismo" value="Realismo" onChange={handleEstiloChange} />
+                  <label htmlFor="realismo">Realismo</label><br />
+                </div>
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="aquarela" name="aquarela" value="Aquarela" onChange={handleEstiloChange} />
+                  <label htmlFor="aquarela">Aquarela</label><br />
+                </div>
               </div>
-              <div className="coluna">
-                <input type="checkbox" id="blackwork" name="blackwork" value="Blackwork" onChange={handleEstiloChange} />
-                <label htmlFor="blackwork">Blackwork</label><br />
-                <input type="checkbox" id="minimalismo" name="minimalismo" value="Minimalismo" onChange={handleEstiloChange} />
-                <label htmlFor="minimalismo">Minimalismo</label><br />
-                <input type="checkbox" id="lettering" name="lettering" value="Lettering" onChange={handleEstiloChange} />
-                <label htmlFor="lettering">Lettering</label><br />
-                <input type="checkbox" id="geometrico" name="geometrico" value="Geométrico" onChange={handleEstiloChange} />
-                <label htmlFor="geometrico">Geométrico</label><br />
+              <div className="colunaCadastro">
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="blackwork" name="blackwork" value="Blackwork" onChange={handleEstiloChange} />
+                  <label htmlFor="blackwork">Blackwork</label><br />
+                </div>
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="minimalismo" name="minimalismo" value="Minimalismo" onChange={handleEstiloChange} />
+                  <label htmlFor="minimalismo">Minimalismo</label><br />
+                </div>
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="lettering" name="lettering" value="Lettering" onChange={handleEstiloChange} />
+                  <label htmlFor="lettering">Lettering</label><br />
+                </div>
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="geometrico" name="geometrico" value="Geométrico" onChange={handleEstiloChange} />
+                  <label htmlFor="geometrico">Geométrico</label><br />
+                </div>
               </div>
-              <div className="coluna">
-                <input type="checkbox" id="pontilhismo" name="pontilhismo" value="Pontilhismo" onChange={handleEstiloChange} />
-                <label htmlFor="pontilhismo">Pontilhismo</label><br />
-                <input type="checkbox" id="neoTraditional" name="neoTraditional" value="Neo Traditional" onChange={handleEstiloChange} />
-                <label htmlFor="neoTraditional">Neo Traditional</label><br />
-                <input type="checkbox" id="oriental" name="oriental" value="Oriental" onChange={handleEstiloChange} />
-                <label htmlFor="oriental">Oriental</label><br />
-                <input type="checkbox" id="trashPolka" name="trashPolka" value="Trash Polka" onChange={handleEstiloChange} />
-                <label htmlFor="trashPolka">Trash Polka</label><br />
+              <div className="colunaCadastro">
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="pontilhismo" name="pontilhismo" value="Pontilhismo" onChange={handleEstiloChange} />
+                  <label htmlFor="pontilhismo">Pontilhismo</label><br />
+                </div>
+
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="neoTraditional" name="neoTraditional" value="Neo Traditional" onChange={handleEstiloChange} />
+                  <label htmlFor="neoTraditional">Neo Traditional</label><br />
+                </div>
+
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="oriental" name="oriental" value="Oriental" onChange={handleEstiloChange} />
+                  <label htmlFor="oriental">Oriental</label><br />
+                </div>
+
+                <div className="checkOpcaoCadastro">
+                  <input type="checkbox" id="trashPolka" name="trashPolka" value="Trash Polka" onChange={handleEstiloChange} />
+                  <label htmlFor="trashPolka">Trash Polka</label><br />
+                </div>
               </div>
             </div>
             <span className="msg-3-tela">Nos conte um pouco sobre você.</span>
             <span className="label-textarea">Fale aqui sobre seu resumo profissional, tempo de atuação, história de vida...</span>
-            <textarea id="resumo" name="resumo" rows="6" cols="65" {...register("resumo")}></textarea>
-            <button className="concluir" onClick={handleConcluir}>Concluir</button>
-            <span className='voltar' id='voltar' onClick={voltarTerceiraParaPrimeira}>Voltar</span>
+            <textarea className="bioCadastro" id="resumo" name="resumo" rows="6" cols="65" {...register("resumo")}></textarea>
+            <div className="botoesVoltarAvancarCadastro">
+            <button className="voltarCadastro" onClick={voltarTerceiraParaPrimeira}>Voltar</button>
+              <button className="concluirCadastro" onClick={handleConcluir}>Concluir</button>
+              
+            </div>
           </div>
         </div>
       </div>
