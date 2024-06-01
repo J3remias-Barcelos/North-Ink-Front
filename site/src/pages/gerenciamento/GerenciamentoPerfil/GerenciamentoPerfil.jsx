@@ -160,9 +160,9 @@ function Perfil() {
           </div>
         </div>
 
-        <div className={styles["botao-grupo"]}>
-          <button onClick={validaCampos}>Salvar</button>
-        </div>
+      
+        <button className={styles.botaoPortifolioSalvarPerfil}>Salvar</button>
+        
         <ToastContainer />
       </section>
     </div>

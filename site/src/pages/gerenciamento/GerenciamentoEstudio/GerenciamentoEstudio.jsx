@@ -122,8 +122,7 @@ function Estudio() {
             />
           </div>
         </div>
-
-        <button className={styles["botao-salvar"]}>Salvar</button>
+        <button className={styles["botaoPortifolioSalvarEstudio"]}>Salvar</button>
       </section>
     </div>
   );

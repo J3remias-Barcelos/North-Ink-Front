@@ -29,8 +29,11 @@ function SidebarGerenciamentoConta() {
       height = "180vh"; // altura para o portfólio
       break;
     case '/gerenciamento-conta/estudio':
-      height = "130vh"; // altura para o estúdio
+      height = "140vh"; // altura para o estúdio
       break;
+    case '/gerenciamento-conta/destaques':
+        height = "140vh"; // altura para o estúdio
+        break;  
     default:
       height = "100vh"; // Altura padrão
   }
@@ -79,7 +82,7 @@ function SidebarGerenciamentoConta() {
             Estúdio
           </MenuItem>
           <MenuItem
-            component={<Link to="destaques" />}
+            component={<Link to="/gerenciamento-conta/destaques" />}
             icon={<InsertChartIcon />}
           >
             Destaques

@@ -39,6 +39,10 @@ body{
 }
 
 .fora-da-sidebar textarea {
+  border-radius: 6px;
+  resize: none;
+  height: 150px;
+  width: 430px; 
   border: #6b6b6b solid 1px;
 }
 
@@ -102,4 +106,17 @@ label {
 
 .ipt-cep svg:hover{
     opacity: 1;
+}
+.botaoPortifolioSalvarEstudio{
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  width: 317px;
+  height: 60px;
+  background-color: #A855F7;
+  color: #FFFFFF;
+  border-radius: 8px;
 }
