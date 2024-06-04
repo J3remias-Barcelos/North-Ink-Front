@@ -5,6 +5,7 @@ import InputMask from 'react-input-mask';
 import { ToastContainer, toast } from 'react-toastify';
 import { LuEye, LuEyeOff } from "react-icons/lu";
 import { useForm } from 'react-hook-form';
+import api from '../../../api';
 
 function Perfil() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -21,10 +22,22 @@ function Perfil() {
   const { register, handleSubmit, setValue, watch } = useForm();
 
   function notify(campo, mensagem) {
-    toast.error(mensagem);
+    if (campo === "nome") {
+      toast.error(mensagem);
+    } else if (campo === "sobrenome") {
+      toast.error(mensagem);
+    } else if (campo === "email") {
+      toast.error(mensagem);
+    } else if (campo === "celular") {
+      toast.error(mensagem);
+    } else if (campo === "senha") {
+      toast.error(mensagem);
+    } else if (campo === "novaSenha") {
+      toast.error(mensagem);
+    }
   }
 
-  function validaCampos() {
+  function handleSalvar() {
     const valorNome = watch("nome");
     const valorSobrenome = watch("sobrenome");
     const valorEmail = watch("email");
@@ -92,6 +105,38 @@ function Perfil() {
     } else {
       document.getElementById("novaSenha").classList.remove("campo-invalido");
     }
+
+    handleSubmit(onSubmit)();
+  }
+
+  const onSubmit = (data) => {
+
+    const celularLimpo = data.celular.replace(/\D/g, '');
+
+    const jsonData = {
+      nome: data.nome,
+      sobrenome: data.sobrenome,
+      email: data.email,
+      celular: celularLimpo,
+      senha: data.senha,
+      novaSenha: data.novaSenha
+    };
+
+    console.log(jsonData);
+
+    //mockando o id para teste
+    const usuarioId = 1;
+
+    api.put(`/usuarios/${usuarioId}`, jsonData)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("Perfil atualizado com sucesso!");
+        }
+      })
+      .catch((error) => {
+        toast.error("Erro ao atualizar perfil, tente novamente!");
+        console.error(error);
+      });
   }
 
   return (
@@ -161,7 +206,7 @@ function Perfil() {
         </div>
 
       
-        <button className={styles.botaoPortifolioSalvarPerfil}>Salvar</button>
+        <button className={styles.botaoPortifolioSalvarPerfil} onClick={handleSalvar}>Salvar</button>
         
         <ToastContainer />
       </section>
