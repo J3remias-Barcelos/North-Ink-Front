@@ -5,5 +5,8 @@
   "scripts": {
     "start": "node ./site/index.html",
     "postinstall": "cd site && npm install"
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.18.0"
   }
 }

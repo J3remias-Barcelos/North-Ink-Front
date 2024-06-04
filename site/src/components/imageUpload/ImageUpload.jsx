@@ -5,7 +5,17 @@ import { Button } from "@/components/ui/button"
 import { IoImagesOutline } from "react-icons/io5";
 import React, { useState } from 'react';
 import axios from 'axios';
+import { BlobServiceClient } from '@azure/storage-blob';
 import styles from "../../pages/gerenciamento/GerenciamentoPortfolio/GerenciamentoPortfolio.module.css";
+
+const account = "storagenorthink";
+const sasToken = "sp=racwdl&st=2024-06-04T04:30:44Z&se=2024-06-30T12:30:44Z&spr=https&sv=2022-11-02&sr=c&sig=71i9eDm5fp%2BlU6h%2F7qkh3Dn5QvpQ%2FaqumPSNgZp3Kp0%3D";
+const containerName = "imagens";
+
+const blobServiceClient = new BlobServiceClient(
+  `https://${account}.blob.core.windows.net?${sasToken}`
+);
+const containerClient = blobServiceClient.getContainerClient(containerName);
 
 function ImageUpload() {
     const [images, setImages] = useState([]);
@@ -28,25 +38,15 @@ function ImageUpload() {
     };
 
     const handleSubmit = async () => {
-        const formData = new FormData();
-        blobs.forEach((blobObj, index) => {
-            formData.append(`image-${index}`, blobObj.file);
-        });
-
         try {
-            const response = await axios.post('subirArquivo', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-
-            if (response.status === 200) {
-                alert('Upload feito');
-            } else {
-                alert('Erro ao subir a imagem.');
+            for (const blobObj of blobs) {
+                const blockBlobClient = containerClient.getBlockBlobClient(blobObj.file.name);
+                await blockBlobClient.uploadBrowserData(blobObj.file);
             }
+            alert('Upload feito com sucesso para o Azure Blob Storage');
         } catch (error) {
-            console.error('error', error);
+            console.error('Erro ao fazer upload para o Azure Blob Storage:', error);
+            alert('Erro ao subir a imagem.');
         }
     };
 
