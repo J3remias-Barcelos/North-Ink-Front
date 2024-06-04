@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./site/index.html",
-    "postinstall": "cd site && npm install"
+    "start": "node ./site/dist/index.html",
+    "postinstall": "cd site && npm install && npm run build"
   },
   "dependencies": {
     "@azure/storage-blob": "^12.18.0"
