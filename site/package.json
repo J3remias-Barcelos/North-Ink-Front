@@ -11,6 +11,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@azure/storage-blob": "^12.23.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.18",
@@ -28,6 +29,7 @@
     "clsx": "^2.1.0",
     "detect-node-es": "^1.1.0",
     "embla-carousel-react": "^8.0.1",
+    "express": "^4.19.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "react": "^18.2.0",
