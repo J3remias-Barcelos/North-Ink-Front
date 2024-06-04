@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./site/dist/index.html",
+    "start": "npm --prefix site run start",
     "postinstall": "cd site && npm install && npm run build"
   },
   "dependencies": {
