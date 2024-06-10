@@ -4,10 +4,8 @@ import styles from './ListagemTatuadores.module.css'
 import GridListagem from '@/components/cardListagem/GridListagem';
 import Footer from '@/components/footer/footer';
 import Carousel from '@/components/carrosselListagem/carrosselListagem';
-import { GoFilter } from "react-icons/go";
 import { PiUserCircleLight } from "react-icons/pi";
 import { Link } from 'react-router-dom';
-import { MdLocationPin } from "react-icons/md";
 
 function ListagemTatuadores() {
   return (
@@ -41,27 +39,11 @@ function ListagemTatuadores() {
         </span>
         <Carousel />
       </div>
-      
-        <div className={styles["filtro"]}>
-          <GoFilter className={styles.icon} size={32} />
-          <a>Filtros</a>
-        </div>
         <h5 className={styles["titulo-listagem"]}>Os melhores profissionais em um só lugar.</h5>
         <div className={styles.content}>
-          {/* Exibindo os componentes GridListagem em grupos de três */}
           <div className={styles.cardRow}>
-            <GridListagem className={styles.cardListagem} />
-            <GridListagem className={styles.cardListagem} />
+            <GridListagem className={styles["cardListagem"]} />
           </div>
-          <div className={styles.cardRow}>
-            <GridListagem className={styles.cardListagem} />
-            <GridListagem className={styles.cardListagem} />
-          </div>
-          <div className={styles.cardRow}>
-            <GridListagem className={styles.cardListagem} />
-            <GridListagem className={styles.cardListagem} />
-          </div>
-          {/* Adicione mais grupos de três conforme necessário */}
         </div>
         <Footer />
       </div>

@@ -10,10 +10,10 @@ const options = {
   },
   slices: [
     { color: 0 , label: 'Blackwork', value: 30 },
-    { color: 0 , label: 'Anime', value: 80 },
-    { color: 0 , label: 'Realismo', value: 20 },
+    { color: 0 , label: 'Anime', value: 50 },
+    { color: 0 , label: 'Realismo', value: 10 },
     { color: 0 , label: 'Mandala', value: 20 },
-    { color: 0 , label: 'Dark', value: 20 },
+    { color: 0 , label: 'Dark', value: 35 },
   ],
   titleTextStyle: {
     fontSize: 18, 

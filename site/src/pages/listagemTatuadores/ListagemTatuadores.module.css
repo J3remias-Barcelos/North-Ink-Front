@@ -148,11 +148,11 @@ html {
   justify-content: center; 
 }
 .cardRow {
-  margin-right: 30px;
+  margin-right: 50px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px; 
 }
-.cardListagem {
-  margin-right: 30px; 
+.cardListagemTatuadores {
+  margin-right: 50px; 
 }

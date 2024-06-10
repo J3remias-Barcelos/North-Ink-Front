@@ -32,7 +32,7 @@ function SidebarGerenciamentoConta() {
       height = "140vh"; // altura para o estúdio
       break;
     case '/gerenciamento-conta/destaques':
-        height = "140vh"; // altura para o estúdio
+        height = "100vh"; // altura para o estúdio
         break;  
     default:
       height = "100vh"; // Altura padrão

@@ -3,9 +3,8 @@ import { PiInstagramLogoThin } from 'react-icons/pi'; // Certifique-se de que es
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const InstagramButton = () => {
+const InstagramButton = ({username}) => {
   const handleClick = () => {
-  const username = 'sophia__amarall';
 
     if (username) {
       const url = `https://instagram.com/${username}`;

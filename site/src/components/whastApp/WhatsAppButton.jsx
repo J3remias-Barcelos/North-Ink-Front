@@ -2,8 +2,8 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { BsWhatsapp } from "react-icons/bs";
 
-const WhatsAppButton = () => {
-  const phoneNumber = '5511980925594'; // Substitua pelo número de telefone desejado, com código do país
+const WhatsAppButton = ({phoneNumber}) => {
+  
   const message = 'Oi, Estou interessada(o) pelo seu trabalho!'; // Substitua pela mensagem desejada
 
   const handleClick = () => {
