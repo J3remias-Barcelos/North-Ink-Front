@@ -38,35 +38,35 @@ function Login() {
     }
 
     const handleLogin = () => {
-        // if (email === "northink@email.com" && senha === "North$") {
-        //     notify(true, "Login bem sucedido!");
-        //     setTimeout(() => {
-        //         setLoggedIn(true);
-        //     }, 1000);
-        // } else {
-        //     notify(false, "Email ou senha incorretos. Por favor, tente novamente.");
-        // }
+        if (email === "northink@email.com" && senha === "123456") {
+            notify(true, "Login bem sucedido!");
+            setTimeout(() => {
+                setLoggedIn(true);
+            }, 1000);
+        } else {
+            notify(false, "Email ou senha incorretos. Por favor, tente novamente.");
+        }
         const usuario = {
             email,
             senha
         }
-        api.post("/usuarios/login", usuario).then((response) => {
-            if (response.status === 200) {
-                notify(true, "Login bem sucedido!");
-                setTimeout(() => {
-                    setLoggedIn(true);
-                    setUserName(response.data.nome);
-                }, 1000);
-                console.log(response.data.token);
-            }
-        }).catch((error) => {
-            console.error(error);
-            if (error.status === 400) {
-                notify(false, "Email ou senha incorretos. Por favor, tente novamente.");
-            } else {
-                notify(false, "Erro ao fazer login. Por favor, tente novamente.");
-            }
-        });
+        // api.post("/usuarios/login", usuario).then((response) => {
+        //     if (response.status === 200) {
+        //         notify(true, "Login bem sucedido!");
+        //         setTimeout(() => {
+        //             setLoggedIn(true);
+        //             setUserName(response.data.nome);
+        //         }, 1000);
+        //         console.log(response.data.token);
+        //     }
+        // }).catch((error) => {
+        //     console.error(error);
+        //     if (error.status === 400) {
+        //         notify(false, "Email ou senha incorretos. Por favor, tente novamente.");
+        //     } else {
+        //         notify(false, "Erro ao fazer login. Por favor, tente novamente.");
+        //     }
+        // });
     };
 
     if (loggedIn) {

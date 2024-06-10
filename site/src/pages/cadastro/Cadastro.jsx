@@ -9,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import InputMask from 'react-input-mask';
 import api from '../../api';
 import logoFooter from '../../utils/assets/logo-footer.png'
+// import { Navigate } from 'node_modules/react-router-dom/dist/index';
+import { Navigate } from 'react-router-dom';
 
 function Cadastro() {
   const [mostrarPrimeiraTela, setMostrarPrimeiraTela] = useState(true);
@@ -208,16 +210,22 @@ function Cadastro() {
     };
 
     console.log(jsonData);
+    toast.success("Cadastro realizado com sucesso!");
 
-    api.post("/usuarios", jsonData).then((response) => {
-      console.log(response)
-      if (response.status === 201) {
-        toast.success("Cadastro realizado com sucesso!");
-      }
-    }).catch(() => {
-      toast.error("Erro ao realizar cadastro, tente novamente!");
-      console.error(response);
-    })
+    setTimeout(() => {
+     <Navigate to="/login" />;
+    }, 1500);
+
+
+    // api.post("/usuarios", jsonData).then((response) => {
+    //   console.log(response)
+    //   if (response.status === 201) {
+    //     toast.success("Cadastro realizado com sucesso!");
+    //   }
+    // }).catch(() => {
+    //   toast.error("Erro ao realizar cadastro, tente novamente!");
+    //   console.error(response);
+    // })
   }
 
   const [mostrarSenha, setMostrarSenha] = useState(false);
