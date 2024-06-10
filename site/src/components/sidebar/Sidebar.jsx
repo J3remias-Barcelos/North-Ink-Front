@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Sidebar,
-  Menu,
-  MenuItem,
-  useProSidebar,
-} from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import PersonIcon from "@mui/icons-material/Person";
 import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
@@ -13,6 +8,7 @@ import InsertChartIcon from "@mui/icons-material/InsertChart";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
+import { Navigate } from "react-router-dom";
 
 function SidebarGerenciamentoConta() {
   const { collapseSidebar } = useProSidebar();
@@ -22,21 +18,25 @@ function SidebarGerenciamentoConta() {
   // Define a altura da sidebar com base no caminho atual
   let height;
   switch (path) {
-    case '/gerenciamento-conta/perfil':
+    case "/gerenciamento-conta/perfil":
       height = "100vh"; // altura para o perfil
       break;
-    case '/gerenciamento-conta/portfolio':
+    case "/gerenciamento-conta/portfolio":
       height = "180vh"; // altura para o portfólio
       break;
-    case '/gerenciamento-conta/estudio':
+    case "/gerenciamento-conta/estudio":
       height = "140vh"; // altura para o estúdio
       break;
-    case '/gerenciamento-conta/destaques':
-        height = "100vh"; // altura para o estúdio
-        break;  
+    case "/gerenciamento-conta/destaques":
+      height = "100vh"; // altura para o estúdio
+      break;
     default:
       height = "100vh"; // Altura padrão
   }
+
+  const handleLogout = () => {
+    return <Navigate to="/login" />;
+  };
 
   return (
     <div className={styles["container-sidebar"]} style={{ height }}>
@@ -87,7 +87,11 @@ function SidebarGerenciamentoConta() {
           >
             Destaques
           </MenuItem>
-          <MenuItem component={<Link to="logout" />} icon={<LogoutIcon />}>
+          <MenuItem
+            onClick={handleLogout}
+            component={<Link to="/login" />}
+            icon={<LogoutIcon />}
+          >
             Sair
           </MenuItem>
         </Menu>
