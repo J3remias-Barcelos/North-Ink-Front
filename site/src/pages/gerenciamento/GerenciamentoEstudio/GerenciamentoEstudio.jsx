@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SidebarGerenciamentoConta from "@/components/sidebar/Sidebar";
 import styles from "./GerenciamentoEstudio.module.css";
 import { useForm } from "react-hook-form";
@@ -8,19 +8,21 @@ import api from '../../../api';
 
 function Estudio() {
   const { register, handleSubmit, setValue, watch } = useForm();
+  const [userId, setUserId] = useState(null);
+  const [estudioId, setEstudioId] = useState(null); // Estado para guardar o ID do estúdio criado
 
   const checkCEP = () => {
     const cep = watch('cep').replace(/\D/g, '');
-    console.log(cep);
-    fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
-      console.log(data);
-      setValue('estado', data.uf);
-      setValue('cidade', data.localidade);
-      setValue('bairro', data.bairro);
-      setValue('rua', data.logradouro);
-      setValue('numero', ''); // Clear address number field
-      setValue('complemento', ''); // Clear address complement field
-    });
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then(res => res.json())
+      .then(data => {
+        setValue('estado', data.uf);
+        setValue('cidade', data.localidade);
+        setValue('bairro', data.bairro);
+        setValue('rua', data.logradouro);
+        setValue('numero', '');
+        setValue('complemento', '');
+      });
   }
 
   const handleKeyPress = (event) => {
@@ -30,109 +32,85 @@ function Estudio() {
   };
 
   function notify(campo, mensagem) {
-    if (campo === "nomeEstudio") {
-      toast.error(mensagem);
-    } else if (campo === "descricao") {
-      toast.error(mensagem);
-    } else if (campo === "cep") {
-      toast.error(mensagem);
-    } else if (campo === "complemento") {
-      toast.error(mensagem);
-    } else if (campo === "numero") {
-      toast.error(mensagem);
-    }
+    toast.error(mensagem);
+    document.getElementById(campo).classList.add("campo-invalido");
   }
 
-  function handleSalvar() {
-    const valorNomeEstudio = watch("nomeEstudio");
-    const valorDescricao = watch("descricao");
-    const valorCep = watch("cep");
-    const valorComplemento = watch("complemento");
-    const valorNumero = watch("numero");
+  function handleSalvar(data) {
+    const nomeEstudio = data.nomeEstudio;
+    const descricao = data.descricao;
+    const cep = data.cep;
+    const complemento = data.complemento;
+    const numero = data.numero;
 
-    // Validação do nome
-    const nomeValido = valorNomeEstudio.length >= 3 && valorNomeEstudio.length <= 50;
-    if (!nomeValido) {
-      document.getElementById("nomeEstudio").classList.add("campo-invalido");
-      notify("nomeEstudio", "Nome deve ter entre 3 e 50 caracteres");
-      return;
-    } else {
-      document.getElementById("nomeEstudio").classList.remove("campo-invalido");
+    // Validação dos campos
+    if (nomeEstudio.length < 3 || nomeEstudio.length > 50) {
+      return notify("nomeEstudio", "Nome deve ter entre 3 e 50 caracteres");
+    }
+    if (descricao.length < 3 || descricao.length > 500) {
+      return notify("descricao", "Descrição deve ter entre 3 e 500 caracteres");
+    }
+    if (cep.length !== 8 && cep.length !== 9) {
+      return notify("cep", "CEP inválido");
+    }
+    if (complemento.length > 50) {
+      return notify("complemento", "Complemento deve ter até 50 caracteres");
+    }
+    if (numero.length === 0) {
+      return notify("numero", "Número deve estar preenchido");
     }
 
-    // Validação da descrição
-    const descricaoValida = valorDescricao.length >= 3 && valorDescricao.length <= 500;
-    if (!descricaoValida) {
-      document.getElementById("descricao").classList.add("campo-invalido");
-      notify("descricao", "Descrição deve ter entre 3 e 500 caracteres");
-      return;
-    } else {
-      document.getElementById("descricao").classList.remove("campo-invalido");
-    }
-
-    // Validação do CEP
-    const cepValido = valorCep.length === 8 || valorCep.length === 9;
-    if (!cepValido) {
-      document.getElementById("cep").classList.add("campo-invalido");
-      notify("cep", "CEP inválido");
-      return;
-    } else {
-      document.getElementById("cep").classList.remove("campo-invalido");
-    }
-
-    // Validação do complemento (opcional)
-    const complementoValido = valorComplemento.length <= 50;
-    if (!complementoValido) {
-      document.getElementById("complemento").classList.add("campo-invalido");
-      notify("complemento", "Complemento deve ter até 50 caracteres");
-      return;
-    } else {
-      document.getElementById("complemento").classList.remove("campo-invalido");
-    }
-
-    // Validação do número
-    const numeroValido = valorNumero.length > 0;
-    if (!numeroValido) {
-      document.getElementById("numero").classList.add("campo-invalido");
-      notify("numero", "Número deve estar preenchido");
-      return;
-    } else {
-      document.getElementById("numero").classList.remove("campo-invalido");
-    }
-
-    handleSubmit(onSubmit)();
-  }
-
-  const onSubmit = (data) => {
-
-    const jsonData = {
-      nome: data.nomeEstudio,
-      descricao: data.descricao,
-      // cep: data.cep,
-      // rua: data.rua,
-      // bairro: data.bairro,
-      // complemento: data.complemento,
-      // numero: data.numero,
-      // estado: data.estado,
-      // cidade: data.cidade
-    };
-
-    console.log(jsonData);
-
-    //mockando o id para teste
-    const estudioId = 1;
-
-    api.put(`/estudios/${estudioId}`, jsonData)
+    api.post(`/estudios`, { nome: nomeEstudio, descricao, fkUsuario: userId })
       .then((response) => {
-        if (response.status === 200) {
-          toast.sucess("Estúdio atualizado com sucesso!");
+        if (response.status === 201) {
+          const estudioData = response.data;
+          setEstudioId(estudioData.id); // Guarda o ID do estúdio no estado
+          sessionStorage.setItem('estudioId', estudioData.id); // Guarda o ID do estúdio no sessionStorage
+          toast.success("Estúdio criado com sucesso!");
+
+          // Aguarda meio segundo antes de salvar o endereço
+          setTimeout(() => {
+            console.log("Salvando endereço...");
+            salvarEndereco(data);
+          }, 500);
         }
       })
       .catch((error) => {
-        toast.error("Erro ao atualizar estúdio, tente novamente!");
+        toast.error("Erro ao criar estúdio, tente novamente!");
         console.error(error);
       });
   }
+
+  const salvarEndereco = (data) => {
+    const { rua, numero, complemento, cep, bairro, cidade, estado } = data;
+
+    const enderecoData = {
+      rua,
+      numero: parseInt(numero), // Converte para número inteiro
+      complemento,
+      cep,
+      bairro,
+      cidade,
+      estado,
+      fkEstudio: estudioId || sessionStorage.getItem('estudioId') // Utiliza o ID do estúdio guardado
+    };
+
+    api.post(`/enderecos`, enderecoData)
+      .then((response) => {
+        if (response.status === 201) {
+          toast.success("Endereço salvo com sucesso!");
+        }
+      })
+      .catch((error) => {
+        toast.error("Erro ao salvar endereço, tente novamente!");
+        console.error(error);
+      });
+  }
+
+  useEffect(() => {
+    const storedUserId = sessionStorage.getItem('userId');
+    setUserId(storedUserId);
+  }, []);
 
   return (
     <div style={{ display: "flex" }}>
@@ -231,7 +209,7 @@ function Estudio() {
             />
           </div>
         </div>
-        <button className={styles["botaoPortifolioSalvarEstudio"]} onClick={handleSalvar}>Salvar</button>
+        <button className={styles["botaoPortifolioSalvarEstudio"]} onClick={handleSubmit(handleSalvar)}>Salvar</button>
       </section>
       <ToastContainer />
     </div>

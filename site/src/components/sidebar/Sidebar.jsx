@@ -35,8 +35,28 @@ function SidebarGerenciamentoConta() {
   }
 
   const handleLogout = () => {
-    return <Navigate to="/login" />;
+    console.log('antes', sessionStorage.getItem('userId'));
+    sessionStorage.removeItem('userId');
+    console.log('depois', sessionStorage.getItem('userId'));
+    console.log("Logout bem-sucedido");
   };
+
+  // const handleLogout = () => {
+  //   api.post("/usuarios/logout")
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         console.log("Logout bem-sucedido");
+  //         // Remove o userId do sessionStorage
+  //         sessionStorage.removeItem('userId');
+  //         // Faz o redirecionamento para a tela de login após o logout bem-sucedido
+  //         return <Navigate to="/login" />;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Erro ao realizar logout:", error);
+  //       // Aqui você pode lidar com erros de logout, se necessário
+  //     });
+  // };
 
   return (
     <div className={styles["container-sidebar"]} style={{ height }}>

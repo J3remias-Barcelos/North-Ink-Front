@@ -13,6 +13,7 @@ import logoFooter from '../../utils/assets/logo-footer.png'
 import { Navigate } from 'react-router-dom';
 
 function Cadastro() {
+  const [cadastro, setCadastro] = useState(false);
   const [mostrarPrimeiraTela, setMostrarPrimeiraTela] = useState(true);
   // const [mostrarSegundaTela, setMostrarSegundaTela] = useState(false);
   const [mostrarTerceiraTela, setMostrarTerceiraTela] = useState(false);
@@ -164,15 +165,16 @@ function Cadastro() {
   const handleEstiloChange = (event) => {
     const { value, checked } = event.target;
     if (checked) {
-      setEstilosSelecionados([...estilosSelecionados, value]);
+      setEstilosSelecionados([...estilosSelecionados, { nome: value }]);
     } else {
-      setEstilosSelecionados(estilosSelecionados.filter(item => item !== value));
+      setEstilosSelecionados(estilosSelecionados.filter(item => item.nome !== value));
     }
   };
+  
 
   function handleConcluir() {
     const valorResumo = watch("resumo");
-
+  
     const resumoValido = valorResumo.length <= 500 && valorResumo.length >= 50;
     if (!resumoValido) {
       document.getElementById("resumo").classList.add("campo-invalido");
@@ -181,23 +183,24 @@ function Cadastro() {
     } else {
       document.getElementById("resumo").classList.remove("campo-invalido");
     }
-
+  
     if (estilosSelecionados.length === 0) {
       notify("estilos", "Escolha pelo menos um estilo");
       return;
     }
-
+  
     console.log("Estilos selecionados:", estilosSelecionados);
-
+  
     handleSubmit(onSubmit)();
   }
+  
 
   const onSubmit = (data) => {
 
     // Remover caracteres não numéricos do CPF e do celular
     const cpfLimpo = data.cpf.replace(/\D/g, '');
     const celularLimpo = data.celular.replace(/\D/g, '');
-
+  
     const jsonData = {
       nome: data.nome,
       sobrenome: data.sobrenome,
@@ -206,27 +209,23 @@ function Cadastro() {
       celular: celularLimpo,
       senha: data.senha,
       resumo: data.resumo,
-      estilos: estilosSelecionados
+      estilos: estilosSelecionados.map(estilo => ({ nome: estilo.nome }))
     };
-
+  
     console.log(jsonData);
-    toast.success("Cadastro realizado com sucesso!");
-
-    setTimeout(() => {
-     <Navigate to="/login" />;
-    }, 1500);
-
-
-    // api.post("/usuarios", jsonData).then((response) => {
-    //   console.log(response)
-    //   if (response.status === 201) {
-    //     toast.success("Cadastro realizado com sucesso!");
-    //   }
-    // }).catch(() => {
-    //   toast.error("Erro ao realizar cadastro, tente novamente!");
-    //   console.error(response);
-    // })
+  
+    api.post("/usuarios", jsonData).then((response) => {
+      console.log(response);
+      if (response.status === 201) {
+        setCadastro(true);
+        toast.success("Cadastro realizado com sucesso!");
+      }
+    }).catch(() => {
+      toast.error("Erro ao realizar cadastro, tente novamente!");
+      console.error(response);
+    });
   }
+  
 
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
@@ -239,6 +238,15 @@ function Cadastro() {
   const toggleMostrarRepitaSenha = () => {
     setMostrarRepitaSenha(!mostrarRepitaSenha);
   };
+
+  if (cadastro) {
+    return (
+        <>
+            <Navigate to="/login" />
+        </>
+    );
+}
+
 
   return (
     <div className="inicio">

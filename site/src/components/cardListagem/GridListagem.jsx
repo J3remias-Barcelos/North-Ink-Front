@@ -3,7 +3,7 @@ import styles from './GridListagem.module.css';
 import { Link } from 'react-router-dom';
 import { MdLocationPin } from "react-icons/md";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
-import apiMock from '../../apiMock';
+import api from '../../api';
 import { ToastContainer, toast } from 'react-toastify';
 import perfilTatuador1 from '../../utils/assets/perfilTatuador1.png'
 import perfilTatuador2 from '../../utils/assets/perfilTatuador2.png'
@@ -37,64 +37,21 @@ import TrashPolka2 from '../../utils/assets/TrashPolka2.jpeg'
 import NeoTraditional2 from '../../utils/assets/NeoTraditional2.jpeg'
 
 
-function GridListagem(  ) {
+function GridListagem() {
 
-  const [tatuadores, setTatuadores] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
-    apiMock.get()
+    api.get('/usuarios/geral')
       .then(response => {
-        if (Array.isArray(response.data)) {
-          setTatuadores(response.data);
-        } else {
-          setTatuadores([
-            {
-              id: 1,
-              nome: "Marcela",
-              rua: "Rua Ficticia",
-              numero: "123",
-              bairro: "Ficção",
-              precoMin: "100,00",
-              estilos: ["Blackwork"]
-            },
-            {
-              id: 2,
-              nome: "João",
-              rua: "Rua Real",
-              numero: "456",
-              bairro: "Realidade",
-              precoMin: "150,00",
-              estilos: ["Realismo", "Aquarela", "Geométrico"]
-            },
-            {
-              id: 3,
-              nome: "João",
-              rua: "Rua Real",
-              numero: "456",
-              bairro: "Realidade",
-              precoMin: "150,00",
-              estilos: ["Realismo", "Aquarela", "Geométrico"]
-            },
-            {
-              id: 4,
-              nome: "João",
-              rua: "Rua Real",
-              numero: "456",
-              bairro: "Realidade",
-              precoMin: "150,00",
-              estilos: ["Realismo", "Aquarela", "Geométrico"]
-            },
-
-          ]);
-
-        }
-
+        setUsuarios(response.data);
       })
       .catch(error => {
-        toast.error("Erro ao buscar os dados dos tatuadores");
-        console.error(error);
+        console.error("Erro ao buscar tatuadores:", error);
+        toast.error('Erro ao buscar tatuadores');
       });
   }, []);
+
 
   const imagens = [
     aquarela,
@@ -110,17 +67,17 @@ function GridListagem(  ) {
     TrashPolka,
     NeoTraditional,
     aquarela2,
-  blackwork2,
-  pontilhismo2,
-  realismo2,
-  minimalismo2,
-  geometrico2,
-  Lettering2,
-  NewSchool2,
-  OldSchool2,
-  Oriental2,
-  TrashPolka2,
-  NeoTraditional2,
+    blackwork2,
+    pontilhismo2,
+    realismo2,
+    minimalismo2,
+    geometrico2,
+    Lettering2,
+    NewSchool2,
+    OldSchool2,
+    Oriental2,
+    TrashPolka2,
+    NeoTraditional2,
   ];
 
   const sortearImagens = () => {
@@ -142,7 +99,7 @@ function GridListagem(  ) {
     perfilTatuador5,
     perfilTatuador6
   ];
-  
+
   const sortearFotoPerfil = () => {
     let numero = Math.floor(Math.random() * perfilTatuador.length);
     return perfilTatuador[numero];
@@ -150,10 +107,10 @@ function GridListagem(  ) {
 
   return (
     <div className={styles.gridListagem}>
-      {tatuadores.map(tatuador => {
+      {usuarios.map(usuario => {
         const imagensSorteadas = sortearImagens();
         return (
-          <div key={tatuador.id} className={styles.cardStudio}>
+          <div key={usuario.id} className={styles.cardStudio}>
             <div className={styles.fotosServicos}>
               {imagensSorteadas.map((imagem, index) => (
                 <div key={index} className={styles.imagemWrapper}>
@@ -166,30 +123,34 @@ function GridListagem(  ) {
                 <div className={styles.informacoesStudio}>
                   <img className={styles.fotoPerfil} src={sortearFotoPerfil()} alt="" />
                   <div className={styles.informacoes}>
-                    <h5 className="font-bold">{tatuador.nome}</h5>
+                    <h5 className="font-bold">{`${usuario.nome} ${usuario.sobrenome}`}</h5>
                     <div className={styles.line}>
                       <MdLocationPin style={{ color: '#A855F7' }} size={20} />
-                      <p className="ml-4">{`${tatuador.estudio.rua}, ${tatuador.estudio.numero} - ${tatuador.estudio.bairro}`}</p>
+                      <p className="ml-4">
+                        {usuario.estudio && usuario.estudio.endereco
+                          ? `${usuario.estudio.endereco.rua}, ${usuario.estudio.endereco.numero} - ${usuario.estudio.endereco.bairro}`
+                          : "Endereço não disponível"}
+                      </p>
                     </div>
                     <div className={styles.line}>
                       <RiMoneyDollarCircleFill className="mr-4" style={{ color: '#A855F7' }} size={20} />
-                      <p className="font-bold" >Taxa Minima: R$ {tatuador.precoMin}</p>
+                      <p className="font-bold" >Taxa Minima: R$ {usuario.precoMin}</p>
                     </div>
                   </div>
                 </div>
               </div>
             </Link>
             <div className={styles.iconeContainer}>
-              {tatuador.estilos.map(estilo => (
-                <div key={estilo} className={styles.icone}>{estilo}</div>
+              {usuario.estilos.map(estilo => (
+                <div key={estilo.id} className={styles.icone}>{estilo.nome}</div>
               ))}
             </div>
-            <Link to={`/detalhes/${tatuador.idTatuador}`}>
+            <Link to={`/detalhes/${usuario.id}`}>
               <div className={styles.botaoTenhoInteresse}>
                 <button className={styles.tenhoInteresse}>Ver Portifólio</button>
               </div>
             </Link>
-           <ToastContainer />
+            <ToastContainer />
           </div>
         );
       })}
@@ -197,4 +158,4 @@ function GridListagem(  ) {
   );
 };
 
-  export default GridListagem;
+export default GridListagem;

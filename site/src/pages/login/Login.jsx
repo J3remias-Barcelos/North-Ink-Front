@@ -8,13 +8,13 @@ import logoBranca from '../../utils/assets/logo-preta.png'
 import 'react-toastify/dist/ReactToastify.css';
 import api from "../../api";
 import GerenciamentoConta from "../gerenciamento/GerenciamentoConta/GerenciamentoConta";
-function Login() {
 
+function Login() {
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [loggedIn, setLoggedIn] = useState(false);
-    const [userName, setUserName] = useState('')
+    const [userName, setUserName] = useState('');
 
     const toggleMostrarSenha = () => {
         setMostrarSenha(!mostrarSenha);
@@ -31,42 +31,38 @@ function Login() {
                 draggable: true,
                 progress: undefined,
                 theme: "light"
-            })
+            });
         } else {
-            toast.error(mensagem)
+            toast.error(mensagem);
         }
     }
 
     const handleLogin = () => {
-        if (email === "northink@email.com" && senha === "123456") {
-            notify(true, "Login bem sucedido!");
-            setTimeout(() => {
-                setLoggedIn(true);
-            }, 1000);
-        } else {
-            notify(false, "Email ou senha incorretos. Por favor, tente novamente.");
-        }
         const usuario = {
             email,
             senha
-        }
-        // api.post("/usuarios/login", usuario).then((response) => {
-        //     if (response.status === 200) {
-        //         notify(true, "Login bem sucedido!");
-        //         setTimeout(() => {
-        //             setLoggedIn(true);
-        //             setUserName(response.data.nome);
-        //         }, 1000);
-        //         console.log(response.data.token);
-        //     }
-        // }).catch((error) => {
-        //     console.error(error);
-        //     if (error.status === 400) {
-        //         notify(false, "Email ou senha incorretos. Por favor, tente novamente.");
-        //     } else {
-        //         notify(false, "Erro ao fazer login. Por favor, tente novamente.");
-        //     }
-        // });
+        };
+        api.post("/usuarios/login", usuario).then((response) => {
+            if (response.status === 200) {
+                notify(true, "Login bem sucedido!");
+                setTimeout(() => {
+                    setLoggedIn(true);
+                    setUserName(response.data.nome);
+                    // Armazena o userId e o token no sessionStorage
+                    sessionStorage.setItem('userId', response.data.userId);
+                    sessionStorage.setItem('token', response.data.token);
+                    sessionStorage.setItem('userName', response.data.nome);
+                    console.log('token', response.data.token);
+                }, 1000);
+            }
+        }).catch((error) => {
+            console.error(error);
+            if (error.response && error.response.status === 400) {
+                notify(false, "Email ou senha incorretos. Por favor, tente novamente.");
+            } else {
+                notify(false, "Erro ao fazer login. Por favor, tente novamente.");
+            }
+        });
     };
 
     if (loggedIn) {
@@ -77,7 +73,6 @@ function Login() {
             </>
         );
     }
-
 
     return (
         <div className="inicio">
@@ -96,7 +91,7 @@ function Login() {
             <Link to='/'><span className="voltar-texto"><IoIosArrowBack size={36} />Voltar</span></Link>
             <div className="login">
                 <div className="conteudo-login">
-                    <img src={logoBranca}></img>
+                    <img src={logoBranca} alt="Logo" />
                     <span className="frase-inicial-login">Seja bem vindo.</span>
                     <div className="campo-login">
                         <label htmlFor="email">E-mail</label>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./GerenciamentoPerfil.module.css";
 import SidebarGerenciamentoConta from "@/components/sidebar/Sidebar";
 import InputMask from 'react-input-mask';
@@ -10,6 +10,7 @@ import api from '../../../api';
 function Perfil() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mostrarNovaSenha, setMostrarNovaSenha] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const toggleMostrarSenha = () => {
     setMostrarSenha(!mostrarSenha);
@@ -109,6 +110,11 @@ function Perfil() {
     handleSubmit(onSubmit)();
   }
 
+  useEffect(() => {
+    const storedUserId = sessionStorage.getItem('userId');
+    setUserId(storedUserId);
+  }, []);
+
   const onSubmit = (data) => {
 
     const celularLimpo = data.celular.replace(/\D/g, '');
@@ -124,10 +130,7 @@ function Perfil() {
 
     console.log(jsonData);
 
-    //mockando o id para teste
-    const usuarioId = 1;
-
-    api.put(`/usuarios/${usuarioId}`, jsonData)
+    api.put(`/usuarios/${userId}`, jsonData)
       .then((response) => {
         if (response.status === 200) {
           toast.success("Perfil atualizado com sucesso!");

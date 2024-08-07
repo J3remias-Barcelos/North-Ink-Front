@@ -14,7 +14,7 @@ import { MdLocationPin } from "react-icons/md";
 import WhatsAppButton from '@/components/whastApp/WhatsAppButton'
 import InstagramButton from "@/components/instagram/InstagramButton";
 import { IoChevronBackCircle } from "react-icons/io5";
-import apiMock from '../../apiMock';
+import api from '../../api';
 import {toast } from 'react-toastify';
 import perfilTatuador1 from '../../utils/assets/perfilTatuador1.png'
 import perfilTatuador2 from '../../utils/assets/perfilTatuador2.png'
@@ -77,32 +77,29 @@ const images = [
 ];
 
 function getRandomImage() {
-  
   return images[Math.floor(Math.random() * images.length)];
 }
 
 function Detalhes() {
   const [randomImages, setRandomImages] = useState(Array(12).fill(''));
-  const { idTatuador } = useParams();
-  const [tatuador, setTatuador] = useState({});
+  const [usuario, setUsuario] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
     setRandomImages(randomImages.map(() => getRandomImage()));
   }, []);
 
   useEffect(() => {
-    apiMock.get(`/${idTatuador}`).then((response) => {
-        if(response.data){
-          setTatuador(response.data);
-        }else{
-          toast.error("Erro ao buscar os dados do tatuador");
-        }
+    api.get(`/usuarios/portfolio/${id}`)
+      .then(response => {
+        setUsuario(response.data);
       })
       .catch(error => {
-        toast.error("Erro ao buscar os dados do tatuador");
-        console.error(error);
+        console.error("Erro ao buscar tatuador:", error);
       });
-  }, [idTatuador]);
+  }, []);
+
+  
 
   const perfilTatuador = [
     perfilTatuador1,
@@ -143,27 +140,27 @@ function Detalhes() {
                 className="w-16 mb-4 rounded-full m-2 mt-9 ml-5"
               />
               <div className="ml-3 mt-16">
-                <h2 className="text-lg font-bold">{tatuador && tatuador.nome}</h2>
+                <h2 className="text-lg font-bold">{`${usuario.nome} ${usuario.sobrenome}`}</h2>
               </div>
             </div>
             <div className={styles.valorTempoDetalhes}>
               <div className={styles.valorMinimo}>
                 <RiMoneyDollarCircleFill class="mr-4" style={{ color: '#3C3C3C' }} size={20} />
-                <span >VALOR MÍNIMO: R$ {tatuador.precoMin}</span><br />
+                <span >VALOR MÍNIMO: R$ {usuario.valorMin}</span><br />
               </div>
               <div className={styles.valorMinimo}>
                 <RiTimerLine class="mr-4" style={{ color: '#3C3C3C' }} size={20} />
-                <span>TEMPO DE EXPERIÊNCIA: {tatuador.experiencia} </span>
+                <span>TEMPO DE EXPERIÊNCIA: {usuario.anosExperiencia} </span>
               </div>
             </div>
 
             <div className="mt-12 ml-5">
               <h3 className="text-xl font-semibold mb-6">Bio</h3>
               <p className="text-sm text-justify w-80">
-               {tatuador.bio}
+               {usuario.resumo}
               </p>
             </div>
-           <WhatsAppButton phoneNumber={tatuador.phoneNumber}/>
+           <WhatsAppButton phoneNumber={usuario.telefone} />
 
 
             <div className={styles["linha-detalhes"]}></div>
@@ -172,9 +169,9 @@ function Detalhes() {
           <div className="mt-2">
             <h2 className="text-xl ml-5 mt-10 font-semibold">Estilos</h2>
             <div className="grid grid-cols-3 gap-7 p-1 ml-4 mt-4 mr-5">
-              {tatuador && tatuador.estilos && tatuador.estilos.map((estilo) => (
-                <Badge key={estilo} className={styles.estilosDetalhes}>
-                {estilo}
+              {usuario && usuario.estilos && usuario.estilos.map((estilo) => (
+                <Badge key={estilo.id} className={styles.estilosDetalhes}>
+                {estilo.nome}
               </Badge>
               )
               
@@ -191,21 +188,20 @@ function Detalhes() {
           <div className={styles["estudio-detalhes"]}>
             
             <div className={styles["nome-estudio-detalhes"]}>
-              <h3 className="ml-7 mt-7 text-xl font-semibold">{tatuador.estudio && tatuador.estudio.nome}  </h3>
+              <h3 className="ml-7 mt-7 text-xl font-semibold">{usuario.estudio ? usuario.estudio.nome : "Estúdio não disponível"}  </h3>
             </div>
           </div>
           <div className={styles.enderecoIcone}>
             <MdLocationPin style={{ color: '#3C3C3C' }} size={20} />
             <p className={styles.enderecoDetalhes}>
-            {tatuador.estudio ?  tatuador.estudio.rua : 'Carregando...'}, 
-            {tatuador.estudio ?  tatuador.estudio.numero : 'Carregando...'}  -
-            {tatuador.estudio ?  tatuador.estudio.bairro : 'Carregando...'}
+            {usuario.estudio?.endereco?.rua ?? "Rua não disponível"}, {usuario.estudio?.endereco?.numero ?? "Nº não disponível"}  -
+            {usuario.estudio?.endereco?.bairro ?? "Bairro não disponível"}
             </p>
           </div>
           <div className="mt-12 ml-5">
             <h3 className="text-xl font-semibold mb-6">Descrição</h3>
             <p className="text-sm text-justify w-80">
-            {tatuador.estudio ? tatuador.estudio.descricao : 'Carregando..'}
+            {usuario.estudio?.descricao ?? "Descrição não disponível"}
             </p>
           </div>
           <div className="mt-2">
@@ -214,7 +210,7 @@ function Detalhes() {
           <div className={styles["instagram"]}>
             <h3 className="text-xl font-semibold mb-6">Redes Sociais</h3>
             <div className="flex space-x-16">
-            <InstagramButton username={tatuador.username}/>
+            <InstagramButton username={usuario.instagram}/>
             </div>
           </div>
         </article>
