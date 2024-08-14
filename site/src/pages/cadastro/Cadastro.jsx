@@ -217,8 +217,11 @@ function Cadastro() {
     api.post("/usuarios", jsonData).then((response) => {
       console.log(response);
       if (response.status === 201) {
-        setCadastro(true);
         toast.success("Cadastro realizado com sucesso!");
+
+        setTimeout(() => {
+        setCadastro(true);
+        }, 1000);
       }
     }).catch(() => {
       toast.error("Erro ao realizar cadastro, tente novamente!");

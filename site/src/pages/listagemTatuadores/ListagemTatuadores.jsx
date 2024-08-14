@@ -6,8 +6,15 @@ import Footer from '@/components/footer/footer';
 import Carousel from '@/components/carrosselListagem/carrosselListagem';
 import { PiUserCircleLight } from "react-icons/pi";
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function ListagemTatuadores() {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+}, []);
+
+
   return (
     <>
       <div className={styles.imagemFundo}>

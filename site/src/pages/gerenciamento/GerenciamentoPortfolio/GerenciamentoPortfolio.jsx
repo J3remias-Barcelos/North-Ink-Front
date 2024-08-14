@@ -14,10 +14,15 @@ function Portfolio() {
   const [resumo, setResumo] = useState("");
   const [instagram, setInstagram] = useState("");
   const [userId, setUserId] = useState(null);
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     const storedUserId = sessionStorage.getItem('userId');
     setUserId(storedUserId);
+    const storedUserName = sessionStorage.getItem('userName');
+      if (storedUserName) {
+        setUserName(storedUserName);
+      }
   }, []);
 
   const handleSave = () => {
@@ -78,7 +83,7 @@ function Portfolio() {
               <div className="flex items-center mb-4">
                 <ProfileImageUploader />
                 <div className="ml-8">
-                  <h2 className="text-lg font-bold font-poppins text-zinc-800">Marcela Marini</h2>
+                  <h2 className="text-lg font-bold font-poppins text-zinc-800">{userName}</h2>
                 </div>
               </div>
               <div className="flex-col ml-2">

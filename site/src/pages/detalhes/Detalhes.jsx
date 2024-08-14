@@ -97,6 +97,8 @@ function Detalhes() {
       .catch(error => {
         console.error("Erro ao buscar tatuador:", error);
       });
+
+      window.scrollTo(0, 0);
   }, []);
 
   
@@ -156,7 +158,7 @@ function Detalhes() {
 
             <div className="mt-12 ml-5">
               <h3 className="text-xl font-semibold mb-6">Bio</h3>
-              <p className="text-sm text-justify w-80">
+              <p className="text-sm text-justify w-80 break-words">
                {usuario.resumo}
               </p>
             </div>
